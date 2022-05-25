@@ -9,7 +9,7 @@ public class NetworkDelayTime {
 
     /**
      * 给定有向加权图，求SPT（最短路径树）到所有点的最长路径。如果不连通，返回-1
-     * 方法：因为没有负权重的边，采用经典的Dijkstra算法
+     * 方法：因为没有负权重的边，采用优先队列的Dijkstra算法
      * 时间复杂度：O(E logE)，空间复杂度：O(E + V)
      */
     private List<Vertex>[] graph;
@@ -33,6 +33,7 @@ public class NetworkDelayTime {
         // priority queue：存放的是边，可能多条边的尾部都是同一个点
         //（由于标准Java库没有IndexPriorityQueue队列，无法针对某个点更新距离，无法更新权重。如果有，时间复杂度就是O(E lgV)）
         queue = new PriorityQueue<>();
+        // 将源点k-1加入队列，SPT从源点开始增长
         disTo[k-1] = 0;
         queue.add(new Vertex(k-1,0));
 
@@ -79,6 +80,51 @@ public class NetworkDelayTime {
         public int compareTo(Vertex that) {
             return this.weight - that.weight;
         }
+    }
+
+    /**
+     * 朴素的Dijkstra方法
+     */
+    public int networkDelayTime2(int[][] times, int n, int k) {
+        int[][] graph = new int[n][n];
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < n; j++){
+                graph[i][j] = -1;
+            }
+        }
+        // 采用邻接矩阵构图
+        for (int[] edge: times){
+            int v = edge[0] - 1;
+            int w = edge[1] - 1;
+            graph[v][w] = edge[2];
+        }
+
+        boolean[] onTree = new boolean[n];
+        // 初始化distTo
+        int[] distTo = new int[n];
+        for (int i = 0; i < n; i++){
+            distTo[i] = Integer.MAX_VALUE;
+        }
+        distTo[k-1] = 0;  // 源点距离为0
+        onTree[k-1] = true;
+
+        // 遍历每个节点
+        for (int i = 0; i < n; i++){
+            // 放松节点i, i->j, 对于i的邻接点更新距离
+            if (!onTree[i]){
+                for (int j = 0; j < n; j++){
+                    if (graph[i][j] != -1 && (distTo[i] + graph[i][j] < disTo[j])){
+                        distTo[j] = distTo[i] + graph[i][j];
+                    }
+                }
+                onTree[i] = true;
+            }
+        }
+        int ret = 0;
+
+        // TODO:
+
+        return ret;
     }
 
     public static void main(String[] args) {
