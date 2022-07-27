@@ -63,8 +63,26 @@ public class PartitionList {
         return lowHead;
     }
 
-    public ListNode partition1(ListNode head, int x) {
 
+    public ListNode partition1(ListNode head, int x) {
+        ListNode smallHead = new ListNode(0);
+        ListNode largeHead = new ListNode(0);
+        ListNode smallPrev = smallHead;  // smallPrev为哑节点，
+        ListNode largePrev = largeHead;
+        while (head != null){
+            if (head.val < x){
+                smallPrev.next = head;  // 不用判断smallPrev为null的情况
+                smallPrev = smallPrev.next;
+            } else {
+                largePrev.next = head; // 不用判断largePrev为null的情况
+                largePrev = largePrev.next;
+            }
+            head = head.next;
+        }
+        largePrev.next = null;   // 此处也不用判断largePrev或smallPrev为null的情况
+        smallPrev.next = largeHead.next;
+
+        return smallHead.next;
     }
 
 
@@ -84,10 +102,10 @@ public class PartitionList {
                                 new ListNode(2, null)))));
         show(head);
         PartitionList inst = new PartitionList();
-        show(inst.partition(head, 3));
+        show(inst.partition1(head, 3));
 
-        show(inst.partition(new ListNode(2, new ListNode(1)), 2));
-        show(inst.partition(new ListNode(2), 2));
-        show(inst.partition(new ListNode(2), 1));
+        show(inst.partition1(new ListNode(2, new ListNode(1)), 2));
+        show(inst.partition1(new ListNode(2), 2));
+        show(inst.partition1(new ListNode(2), 1));
     }
 }
