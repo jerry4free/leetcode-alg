@@ -1,5 +1,8 @@
 package LinkedListX;
 
+/**
+ * 82. Remove Duplicates from Sorted List II
+ */
 public class RemoveDuplicatesFromSortedListII {
     public ListNode deleteDuplicates(ListNode head) {
         // 设置哑节点
