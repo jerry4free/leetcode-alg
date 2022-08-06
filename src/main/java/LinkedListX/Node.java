@@ -19,4 +19,27 @@ public class Node {
         right = _right;
         next = _next;
     }
+
+    public void showByLevel(){
+        Node curr = this;
+        while (curr != null){
+            // 找到下一层的头
+            Node next = null;
+            while (curr != null){
+                System.out.print(curr.val + ",");
+                // next如果为null，有左子树
+                if (curr.left != null && next == null){
+                    next = curr.left;
+                }
+                // next如果为null，有右子树
+                if (curr.right != null && next == null){
+                    next = curr.right;
+                }
+                curr = curr.next;
+            }
+            curr = next;
+            System.out.print("null,");
+        }
+        System.out.print("\n");
+    }
 }
