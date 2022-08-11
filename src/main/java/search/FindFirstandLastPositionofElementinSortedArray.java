@@ -5,6 +5,9 @@ package search;
  */
 public class FindFirstandLastPositionofElementinSortedArray {
 
+    // 参考：
+    // 1. https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/solution/acm-xuan-shou-tu-jie-leetcode-zai-pai-xu-yz1m/
+    // 2. https://leetcode.cn/circle/discuss/ooxfo8/#%E8%B0%A8%E4%BB%A5%E6%AD%A4%E6%96%87%E7%8C%AE%E7%BB%99%E8%BF%B7%E5%A4%B1%E5%9C%A8%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E4%B8%AD%E7%9A%84%E9%9D%92%E6%98%A5%E5%B2%81%E6%9C%88
     public int[] searchRange(int[] nums, int target) {
         if (nums.length == 0){
             return new int[]{-1, -1};
