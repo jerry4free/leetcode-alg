@@ -26,7 +26,8 @@ public class LRUCache {
     public LRUCache(int capacity) {
         this.capacity = capacity;
         cache = new HashMap<>(capacity);
-        // 使用哑节点, 且组成链表
+        // 使用哑节点
+        // 注意：且组成链表
         head = new DlinkedNode();
         tail = new DlinkedNode();
         head.next = tail;
@@ -83,7 +84,8 @@ public class LRUCache {
         DlinkedNode node;
         node = cache.get(key);
         if (node != null){
-            // 若存在，移动到第一个
+            // 若存在，update，移动到第一个
+            node.value = value; // 注意，update
             moveToFirst(node);
         } else {
             // 不存在，插入到head
@@ -92,8 +94,9 @@ public class LRUCache {
             cache.put(key, node);
             // 若超过容量，移除最后一个
             if (cache.size() > capacity) {
-                removeNode(tail.prev);
+                // 注意：需要先删除cache，再删链表。否则tail.prev删完已经改变
                 cache.remove(tail.prev.key);
+                removeNode(tail.prev);
             }
         }
     }
