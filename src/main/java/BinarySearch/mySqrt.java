@@ -1,4 +1,4 @@
-package search;
+package BinarySearch;
 
 /**
  * 69. Sqrt(x)

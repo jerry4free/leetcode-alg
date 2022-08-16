@@ -1,4 +1,4 @@
-package search;
+package BinarySearch;
 
 /**
  * 35. Search Insert Position

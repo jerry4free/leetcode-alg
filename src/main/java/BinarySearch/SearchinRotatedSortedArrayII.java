@@ -1,4 +1,4 @@
-package search;
+package BinarySearch;
 
 /**
  * 81. Search in Rotated Sorted Array II

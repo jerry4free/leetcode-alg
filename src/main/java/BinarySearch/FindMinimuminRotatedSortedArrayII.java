@@ -1,4 +1,4 @@
-package search;
+package BinarySearch;
 
 /**
  * 154. Find Minimum in Rotated Sorted Array II
