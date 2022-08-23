@@ -40,6 +40,8 @@ public class LongestIncreasingSubsequence {
         return ans;
     }
 
+    // TODO: 贪心法, 使用二分查找提高每轮状态的时间复杂度: O(NlgN),
+
     public static void main(String[] args) {
         LongestIncreasingSubsequence inst = new LongestIncreasingSubsequence();
         System.out.println(inst.lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
