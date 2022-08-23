@@ -15,7 +15,7 @@ public class HIndexII {
         //
         while (l <= r){
             int m = l + (r - l) / 2;
-            //  有len-m篇论文至少citation[m]次，但是len-m次小于citation[m], 意味着还可以往左找
+            //  有len-m篇论文至少citation[m]次，但是len-m次小于citation[m], 意味着还可以往左找更多的论文
             if (citations[m] >= len - m){
                 r = m - 1;
             } else {
