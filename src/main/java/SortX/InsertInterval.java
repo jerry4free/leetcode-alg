@@ -10,31 +10,31 @@ import java.util.List;
  */
 public class InsertInterval {
 
-    // TODO: not finish
     public int[][] insert(int[][] intervals, int[] newInterval) {
         int len = intervals.length;
         List<int[]> ret = new ArrayList<>();
 
-        // 区间一共可以分为3部分，在新区间的左侧无交集，在新区间的右侧无交集，存在交集部分
+        // 区间一共可以分为3部分:处于新区间左侧不重合的部分,跟新区间有重合的部分, 处于新区间右侧不重合的部分
 
-        // 新区间左侧不重合的部分, 新区间结束位置小于某个开始位置
+        // 处于新区间左侧不重合的部分, 即：新区间开始位置大于每个区间的结束位置
         int i = 0;
-        while (i < len && newInterval[1] < intervals[i][0]){
+        while (i < len && newInterval[0] > intervals[i][1]){
             ret.add(intervals[i]);
             i++;
         }
 
-        // 新区间有重合的部分，新区间结束位置 >= 某个开始位置（TODO:注意）
+        // 跟新区间有重合的部分，新区间结束位置 >= 某个开始位置（TODO:注意）
         int start = newInterval[0];
         int end = newInterval[1];
         while (i < len && newInterval[1] >= intervals[i][0]){
-            start = Math.min(newInterval[0], intervals[i][0]);
-            end = Math.max(newInterval[1], intervals[i][1]);
+            start = Math.min(start, intervals[i][0]);
+            end = Math.max(end, intervals[i][1]);
             i++;
         }
+        
         ret.add(new int[]{start, end});  // 包括新区间处于最右侧完全没交集的情况
 
-        // 新区间右侧不重合的部分，新区间开始位置大于某个结束位置
+        // 剩下就是处于新区间右侧不重合的部分，
         while (i < len){
             ret.add(intervals[i]);
             i++;
@@ -120,7 +120,6 @@ public class InsertInterval {
         show(inst.insert(new int[][]{{1, 3}, {6,9}}, new int[]{2,5}));
         show(inst.insert(new int[][]{}, new int[]{2,5}));
         show(inst.insert(new int[][]{{1,5}}, new int[]{2,3}));
-        // case
         show(inst.insert(new int[][]{{1,2}}, new int[]{3,5}));
     }
 }
