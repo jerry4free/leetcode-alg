@@ -4,6 +4,7 @@ package DynamicPrograming;
 
 /**
  * 343
+ * 类似题目：剑指 Offer 14- II. 剪绳子 II
  */
 
 public class IntegerBreak{
@@ -21,6 +22,8 @@ public class IntegerBreak{
          * 3. 拆分就是k * dp[n-k]
          * 那么就是求k从1到n-1时，所有轮中的拆分或不拆分的最大值。这是一种自上而下的方法，那么可以倒着来，自下而上
          *
+         * 时间复杂度O(n^2), 空间复杂度O(n)
+         * //TODO: 如何优化到O(n)的时间复杂度呢？
          *
          */
         int[] dp = new int[n+1];
@@ -40,6 +43,7 @@ public class IntegerBreak{
     public static void main(String[] args){
         IntegerBreak inst = new IntegerBreak();
         System.out.println(inst.integerBreak(10));
+        System.out.println(inst.integerBreak(120));
         System.out.println(inst.integerBreak(2));
     }
 }
