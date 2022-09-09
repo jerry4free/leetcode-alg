@@ -6,12 +6,12 @@ import Util.Utils;
  * offer 46
  */
 public class TranslateNum {
-    // 注意点：如果知道重点考察的算法，其他不重要的可以快速简单实现，或调用系统API。
+    // 技巧：注意点：如果知道重点考察的算法，其他不重要的可以快速简单实现，或调用系统API。
     public int translateNum(int num) {
         String s = String.valueOf(num); // 转化成string，简化数值从高到低的遍历
 
         int len = s.length();
-        int[] dp = new int[len];
+        int[] dp = new int[2];
 
         dp[0] = 1;
 
@@ -26,21 +26,21 @@ public class TranslateNum {
             int n = (s.charAt(i-1) - '0') * 10 + s.charAt(i) - '0';
             if (i == 1){
                 if (n < 26 && n >= 10){
-                    dp[i] = 2;
+                    dp[1] = 2;
                 } else {
-                    dp[i] = dp[i-1];
+                    dp[1] = dp[0];
                 }
             } else {
                 if (n < 26 && n >= 10){
-                    dp[i] = dp[i-1] + dp[i-2];
+                    dp[i%2] = dp[0] + dp[1];
                 } else {
-                    dp[i] = dp[i-1];
+                    dp[i%2] = dp[(i-1)%2];
                 }
             }
         }
 //        Utils.show(dp);
 
-        return dp[len-1];
+        return dp[(len-1)%2];
     }
 
     public static void main(String[] args) {
