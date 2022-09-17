@@ -8,4 +8,14 @@ public class Utils {
         }
         System.out.println("");
     }
+
+    public static void show2D(int[][] n){
+        for (int[] a : n){
+            for (int i: a){
+                System.out.print(i + ", ");
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+    }
 }
