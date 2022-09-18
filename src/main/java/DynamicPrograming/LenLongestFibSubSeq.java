@@ -37,13 +37,11 @@ public class LenLongestFibSubSeq {
             for (int j = i-1; j >= 0; j--){
                 int k = index.getOrDefault(arr[i]-arr[j], -1);
                 // 如果满足斐波那契数列，则更新状态
-                if (k != -1 && k < j){
+                if (k != -1 && k < j){  // !!! 此处要加上k < j的判断，避免出现找到k>j的情况
                     dp[i][j] = Math.max(dp[j][k] + 1, 3);
                     ret = Math.max(ret, dp[i][j]);
-//                    if (i == 8 && j == 6){
-                    System.out.println(k + ":" + arr[k] + ", " + j + ":" + arr[j] + ", " + i + ":" + arr[i]);
-                        System.out.println(dp[i][j] + "," + dp[j][k]);
-//                    }
+//                    System.out.println(k + ":" + arr[k] + ", " + j + ":" + arr[j] + ", " + i + ":" + arr[i]);
+//                        System.out.println(dp[i][j] + "," + dp[j][k]);
                 }
             }
         }
