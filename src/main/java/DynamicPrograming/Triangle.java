@@ -39,6 +39,5 @@ public class Triangle {
 
     public static void main(String[] args) {
         Triangle inst = new Triangle();
-        inst.minimumTotal();
     }
 }
