@@ -9,6 +9,8 @@ import java.util.Arrays;
 public class CoinChange {
 
     /**
+     * 完全背包问题
+     *
      * 每种物品的数量都是无限的，本题是个无限背包问题
      * 假设f(i,j)表示前i个物品中选择若干硬币能组成金额j的最少硬币数目，那么f(n,amount)就起题目的解
      * 对于第i-1个硬币，数量无限，假设最多取k个
