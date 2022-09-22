@@ -3,6 +3,7 @@ package Util;
 public class Utils {
 
     public static void show(int[] n){
+        System.out.print("show array:");
         for (int i : n){
             System.out.print(i + ", ");
         }
