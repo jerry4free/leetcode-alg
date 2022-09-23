@@ -1,8 +1,6 @@
 package DynamicPrograming;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * 139. Word Break
@@ -33,6 +31,25 @@ public class WordBreak {
         for (int i = 1; i <= len; i++){
             for (int j = 0; j < i; j++){
                 if (f[j] && map.getOrDefault(s.substring(j, i), false)){   //s[j:i]
+                    f[i] = true;
+                }
+            }
+        }
+
+        return f[len];
+    }
+
+    // 采用set
+    public boolean wordBreak2(String s, List<String> wordDict) {
+        int len = s.length();
+        boolean[] f = new boolean[len+1];
+
+        Set<String> set = new HashSet<>(wordDict);
+        f[0] = true;
+
+        for (int i = 1; i <= len; i++){
+            for (int j = 0; j < i; j++){
+                if (f[j] && set.contains(s.substring(j, i))){   //s[j:i]
                     f[i] = true;
                 }
             }
