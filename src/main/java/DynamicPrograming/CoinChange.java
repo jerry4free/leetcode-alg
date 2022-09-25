@@ -36,7 +36,7 @@ public class CoinChange {
             for (int j = 1; j <= amount; j++){
                 dp[i][j] = dp[i-1][j];
                 for (int k = 1; k * coins[i-1] <= j; k++){
-                    dp[i][j] = Math.min(dp[i][j], dp[i][j - k*coins[i-1]] + k);
+                    dp[i][j] = Math.min(dp[i][j], dp[i-1][j - k*coins[i-1]] + k);
                 }
             }
         }
@@ -60,7 +60,7 @@ public class CoinChange {
 
         for (int c: coins){
             for (int j = amount; j >= 0; j--){
-                for (int k = 1; k * c <= j; k++){
+                for (int k = 1; k * c <= j; k++){  // 注意k从1开始，因为默认就是k=0，即不包含当前
                     dp[j] = Math.min(dp[j], dp[j - k*c] + k);
                 }
             }
@@ -104,9 +104,9 @@ public class CoinChange {
 
     public static void main(String[] args) {
         CoinChange inst = new CoinChange();
-        System.out.println(inst.coinChange3(new int[]{2}, 3));
-        System.out.println(inst.coinChange3(new int[]{1,2,5}, 11));
-        System.out.println(inst.coinChange3(new int[]{2}, 0));
+        System.out.println(inst.coinChange(new int[]{2}, 3));  // -1
+        System.out.println(inst.coinChange(new int[]{1,2,5}, 11)); //
+        System.out.println(inst.coinChange(new int[]{2}, 0));
 
     }
 }
