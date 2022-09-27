@@ -44,7 +44,7 @@ public class PerfectSquares {
 
     // 动态转移方程是：f(i,j) = min(f(i-1,j), f(i,j-nums[i]) + 1), 0 <= nums[i] < j
     // 分别对应不选，或者选一个, 完全背包问题转化为了01背包问题
-    public int numSquares(int n) {
+    public int numSquares3(int n) {
         int m = (int)Math.sqrt(n);
         int[][] f = new int[m+1][n+1];
         Arrays.fill(f[0], n+1);
@@ -52,7 +52,7 @@ public class PerfectSquares {
 
         for (int i = 1; i <= m; i++){
             for (int j = 1; j <= n; j++){
-                if (j > i*i){
+                if (j >= i*i){
                     f[i][j] = Math.min(f[i-1][j], f[i][j-i*i] + 1);
                 } else {
                     f[i][j] = f[i-1][j];
@@ -63,8 +63,30 @@ public class PerfectSquares {
         return f[m][n];
     }
 
+    // dp优化为一维，
+    // 状态转移：dp[i][j]=max{ dp[i−1][j], dp[i][j−wi ]+vi },0<=wi <=j
+    // 由于f(i,j)的状态只跟f(i-1,j)和f(i,j-i*i)+1有关，
+    // 即跟上一行j的状态和本行j之前的状态, 所以只需要正序遍历
+    public int numSquares(int n) {
+        int m = (int) Math.sqrt(n);
+        int[] f = new int[n + 1];
+        Arrays.fill(f, n + 1); // base case, 从前0个数字，装满超过0的数字，基本上不可能
+        f[0] = 0;
 
-    public static void main(String[] args) {
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (j >= i * i) {
+                    f[j] = Math.min(f[j], f[j - i * i] + 1);
+                }
+            }
+        }
+
+        return f[n];
+    }
+
+
+
+        public static void main(String[] args) {
         PerfectSquares inst = new PerfectSquares();
         System.out.println(inst.numSquares(1));
         System.out.println(inst.numSquares(13));
