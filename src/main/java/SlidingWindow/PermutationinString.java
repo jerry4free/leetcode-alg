@@ -12,6 +12,7 @@ public class PermutationinString {
      * 先统计要找的频次表，
      * 然后在s2上不断扩大窗口，中和频次表，直到频次表被中和且长度为m，那么就是包含s1的某个排列
      * 如果遍历完s2，频次表也没被中和，就是没找到
+     * 变长窗口版本：
      * TODO: 滑动窗口的方法没理解透
      */
     public boolean checkInclusion(String s1, String s2) {
@@ -42,6 +43,7 @@ public class PermutationinString {
     }
 
     /**
+     * 固定长度窗口版本：
      * 维护一个固定长度的窗口，每次左右边界同时右移1位，然后判断窗口内的频次表是否跟要找的频次表相同。
      */
     public boolean checkInclusion2(String s1, String s2) {
