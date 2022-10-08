@@ -1,4 +1,4 @@
-package TwoPointer;
+package SlidingWindow;
 
 /**
  * 209. Minimum Size Subarray Sum

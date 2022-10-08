@@ -1,4 +1,4 @@
-package TwoPointer;
+package SlidingWindow;
 
 /**
  * 713. Subarray Product Less Than K

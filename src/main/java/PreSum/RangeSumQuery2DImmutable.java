@@ -1,4 +1,4 @@
-package TwoPointer;
+package PreSum;
 
 import Util.Utils;
 

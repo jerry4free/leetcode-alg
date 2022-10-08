@@ -1,4 +1,4 @@
-package TwoPointer;
+package SlidingWindow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +30,7 @@ public class RepeatedDNASequences {
     }
 
     /**
+     * 滑动窗口，
      * 优化复杂度为：O(N)
      */
     public List<String> findRepeatedDnaSequences(String s) {
@@ -55,9 +56,9 @@ public class RepeatedDNASequences {
 
         // 哈希key不用10个字符，改为使用int来表示后，可以O(1)的时间算出是否重复
         for (int i = L - 1; i < len; i++){
-            curr <<= 2;
+            curr <<= 2;  // 右移右边界
             curr |= bin.get(s.charAt(i));
-            curr &= ((1 << (2 * L)) - 1);  // 只保留低20位，高位置0
+            curr &= ((1 << (2 * L)) - 1);  // 右移左边界，只保留低20位，高位置0
             map.put(curr, map.getOrDefault(curr, 0) + 1);
             if (map.get(curr) == 2){
                 ret.add(s.substring(i - L + 1, i + 1)); // 这里还是需要O(10), 注意是右开，所以都要+1
