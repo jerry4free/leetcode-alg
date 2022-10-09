@@ -37,7 +37,15 @@ public class MinimumWindowSubstring {
             // 针对移入窗口的元素，更新win和valid的状态
             if (need.containsKey(c)){
                 win.put(c, win.getOrDefault(c, 0) + 1);
-//                if (need.get(c) == win.get(c)) { // TODO:这个==在大的字符串的测试用例时是错的，通过不了，为什么？
+//                if (need.get(c) == win.get(c)) {
+                /**
+                 * TODO:这个==在一些字符串的测试用例时是错的，通过不了，为什么？
+                 * 因为java中“==”对于引用类型比较的是对象地址是否相同，
+                 * JVM会自动维护八种基本类型的常量池，int常量池中初始化-128~127的范围，所以当为Integer i=127时，
+                 * 在自动装箱过程中是取自常量池中的数值，而当Integer i=128时，128不在常量池范围内，
+                 * 所以在自动装箱过程中需new 128，所以地址不一样
+                 * 所以当字符次数由127增大到128之后，就是一个新的对象的地址，==比较就是false
+                  */
                 if (need.get(c).equals(win.get(c))) { // 次数相等时更新valid
                     valid++;
                 }
