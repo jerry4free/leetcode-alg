@@ -26,7 +26,7 @@ public class FindAllAnagramsinaString {
         while (r < n){
             if (cnt[s.charAt(r)] > 0){  // 如果还有消耗品, 就右移右边界
                 cnt[s.charAt(r++)]--;
-                if (r - l == m){  //l是在滑动窗口内的，r是滑动窗口外的，所以r-l就是
+                if (r - l == m){  //l是在滑动窗口内的，r是滑动窗口外的，左闭右开，所以r-l就是长度
                     ret.add(l);
                 }
             } else { // 如果没有消耗品，就右移左边界来释放消耗品（说明找到了一个不包含的字符，或者字符的数量消耗完了）

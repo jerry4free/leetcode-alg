@@ -8,32 +8,30 @@ import java.util.Arrays;
 public class PermutationinString {
 
     /**
-     * 先搞懂题意：
-     * 先统计要找的频次表，
-     * 然后在s2上不断扩大窗口，中和频次表，直到频次表被中和且长度为m，那么就是包含s1的某个排列
-     * 如果遍历完s2，频次表也没被中和，就是没找到
+     * "消耗品"：要找的频次表，
+     * 扩大窗口：在s2上不断扩大窗口，需要消耗"消耗品"，
+     * 缩小窗口：如果没有消耗品，就缩小窗口，释放消耗品
      * 变长窗口版本：
-     * TODO: 滑动窗口的方法没理解透
      */
     public boolean checkInclusion(String s1, String s2) {
         int m = s1.length();
         int n = s2.length();
 
-        int[] pattern = new int[26]; // 要找的s1的频次表, 为正代表要找的s1的频次表，总赊账表
+        int[] pattern = new int[26]; // 要找的s1的频次表, 为正即为有消耗品
         for (int i = 0; i < m; i++){
             pattern[s1.charAt(i) - 'a']++;
         }
 
         int l = 0;
-        // 然后遍历s2，对找到的符合条件的
+        // 然后遍历s2
         // 右移右边界，不断扩大窗口，中和频次表，直到长度也为m
         for (int r = 0; r < n; r++){
             int x = s2.charAt(r) - 'a';
-            pattern[x]--;  // 中和频次表
+            pattern[x]--;  // 消耗消耗品
             // 如果窗口内有不符合条件的字符，就是负的，那么右移左边界，缩小窗口，直到当前右边界囊括的字符符合条件
+            // 滑动窗口的收缩条件：pattern[x] < 0
             while (pattern[x] < 0){
-                pattern[s2.charAt(l) - 'a']++;  // 右移左边界，缩小窗口，
-                l++;
+                pattern[s2.charAt(l++) - 'a']++;  // 右移左边界，缩小窗口，
             }
             if (r - l + 1 == m){
                 return true;
