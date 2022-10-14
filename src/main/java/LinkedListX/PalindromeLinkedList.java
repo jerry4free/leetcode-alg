@@ -5,7 +5,7 @@ package LinkedListX;
  */
 public class PalindromeLinkedList {
     /**
-     * TODO：如果是O(1)的复杂度，则需要反转后半部分的链表
+     * TODO：如果是O(1)的复杂度，则需要修改链表，反转后半部分的链表，验证完再反转回来
      */
 
     /**
