@@ -7,11 +7,17 @@ public class RelativeSortArray {
 
     /**
      * 计数排序
+     * 时间复杂度：O(m+n)，m是arr1的大小，n是arr2的大小
+     * 空间复杂度：O(m)
      */
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
         // 存储arr1中每个数字对应count
-        // 这里的数组大小用了1001，其实可以算个最大值，就是arr1的基数，从而降低存储
-        int[] arr1Cnt = new int[1001]; //
+        int max = 0;
+        for (int n : arr1){
+            max = Math.max(n, max);
+        }
+        // 这里的数组大小没用1001，算个最大值，就是arr1的基数，从而降低存储
+        int[] arr1Cnt = new int[max+1]; //
         int len2 = arr1.length;
         for (int n : arr1){
             arr1Cnt[n]++;
