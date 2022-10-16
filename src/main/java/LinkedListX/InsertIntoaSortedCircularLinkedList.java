@@ -18,7 +18,7 @@ public class InsertIntoaSortedCircularLinkedList {
 
         Node curr = head;
         Node next = head.next;
-        // 枚举1遍
+        // !!枚举1遍就停止，不能陷入死循环
         while (next != head){
             // insertVal位于2个节点之前
             if(curr.val <= insertVal && insertVal <= next.val){
