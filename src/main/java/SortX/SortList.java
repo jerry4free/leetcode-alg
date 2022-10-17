@@ -35,7 +35,8 @@ public class SortList {
 
     private ListNode split(ListNode head){
         ListNode dummy = new ListNode(0, head);
-        // 加上dummy后，避免只有2个节点时，无法截断.
+        // 加上dummy是为了避免只有2个节点:2,1时，分成了2,1和null
+        // 除了加dummy外还有一种办法：fast = head.next;
         // 循环完，slow.next是后半段的开始
         ListNode slow = dummy;
         ListNode fast = dummy;
@@ -50,7 +51,7 @@ public class SortList {
     }
 
     /**
-     * top-down
+     * top-down的归并排序
      */
     public ListNode sortList(ListNode head) {
         if (head == null){
