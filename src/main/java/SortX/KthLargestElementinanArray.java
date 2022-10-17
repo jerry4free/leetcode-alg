@@ -84,6 +84,9 @@ public class KthLargestElementinanArray {
      * 找倒数第k大的数字，那么可以维护一个大小为k的小根堆，这样堆顶元素就是已经遍历过的元素中第k大的元素
      * 然后枚举剩下元素，每次O(1)的时间跟堆顶的元素进行比较，
      * 比堆顶元素小，即比当前第k大的元素还小，则忽略；比堆顶元素大，则将堆顶元素替换掉平衡下
+     *
+     * 时间复杂度：O(NlgK)
+     * 空间复杂度：O(K)
      */
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
