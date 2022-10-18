@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * 380
+ */
 public class RandomizedSet {
 
     HashMap<Integer, Integer> numToLoc;
