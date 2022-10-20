@@ -1,4 +1,4 @@
-package Offer;
+package TwoPointer;
 
 import java.util.*;
 
