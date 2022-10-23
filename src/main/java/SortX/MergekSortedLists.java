@@ -58,6 +58,8 @@ public class MergekSortedLists {
         return dummy.next;
     }
 
+    // TODO: 另外还能通过归并排序的方法来实现，top-down 或者bottom-up的2种方法
+
     public static void main(String[] args) {
 
     }

@@ -12,6 +12,7 @@ public class LargestRectangleArea {
      */
     public int largestRectangleArea(int[] heights) {
         // 栈中存储的是单调递增的高度，代表尚未确定下一次更低的高度
+        // TODO：采用Deque替换掉Stack
         Stack<Integer> stack = new Stack<>();
         // base case：存储-1下标, 代表柱子最左侧的边界（不包含）
         stack.push(-1);
@@ -19,7 +20,8 @@ public class LargestRectangleArea {
         int ret = 0;
         int len = heights.length;
         for (int i = 0; i < len; i++){
-            // 如果第i个柱子小，那么遇到了更低的高度，则可以算之前的累积的高柱子了。
+            // 第i个柱子小，即遇到了更低的高度，则可以算之前的累积的高柱子了。
+            // 直到枚举完所有栈中内容，最左侧除外
             while(stack.peek() != -1 && heights[stack.peek()] > heights[i]) {
                 int height = heights[stack.pop()];
                 int width = i - stack.peek() - 1;  // i是柱子的右边界，stack.peek()是柱子的左边界，左开右开
