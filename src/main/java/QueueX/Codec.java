@@ -7,8 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * 297.序列化与反序列化二叉树
+ */
 public class Codec {
 
+
+    // not AC, space will overflow
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         List<String> nodes = new ArrayList<>();
