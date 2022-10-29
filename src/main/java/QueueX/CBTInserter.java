@@ -24,8 +24,9 @@ public class CBTInserter {
     }
 
 
-    List<TreeNode> l = new ArrayList<>();
+    List<TreeNode> l;
 
+    // TODO: List和Queue可以只保留一个，本质上都是用队列来实现
     public CBTInserter(TreeNode root) {
         l = new ArrayList<>();
         l.add(null);
