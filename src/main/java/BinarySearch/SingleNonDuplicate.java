@@ -1,7 +1,7 @@
 package BinarySearch;
 
 /**
- * 540
+ * 540. Single Element in a Sorted Array
  */
 public class SingleNonDuplicate {
 
