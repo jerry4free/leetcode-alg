@@ -46,13 +46,13 @@ public class MinEatingSpeed {
             // 当速度为m时的小时数
             int hour = getHour(piles, m);
             if (hour <= h){  // 如果小于等于h，说明每小时吃的太多，可以吃少点;等于h，尝试再降速度，但是当前速度m是符合要求的。
-                r = m;
+                r = m;  // 由于r=m，所以max可以遍历到。
             } else {
                 l = m + 1;
             }
         }
 
-        // 结束后，l是
+        // 结束后，l和r相等
         return l;
     }
 
