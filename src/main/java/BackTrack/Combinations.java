@@ -1,4 +1,4 @@
-package TraceBack;
+package BackTrack;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -39,4 +39,34 @@ public class Combinations {
             path.pop();
         }
     }
+
+
+    /**
+     *  DFS（二叉树）
+     */
+    public List<List<Integer>> combine2(int n, int k) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        dfs2(k, n, new ArrayDeque<>(), ans);
+
+        return ans;
+    }
+
+    private void dfs2(int k, int curr, Deque<Integer> path, List<List<Integer>> ans){
+        if (path.size() + curr < k){
+            return;
+        } else if (path.size() == k){
+            ans.add(new ArrayList<>(path));
+            return;
+        }
+
+        // 加
+        path.push(curr);
+        dfs2(k, curr - 1, path, ans);
+        path.pop();
+
+        // 不加
+        dfs2(k, curr - 1, path, ans);
+    }
+
 }

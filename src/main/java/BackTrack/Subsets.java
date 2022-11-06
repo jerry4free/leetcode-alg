@@ -1,4 +1,4 @@
-package TraceBack;
+package BackTrack;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -66,10 +66,10 @@ public class Subsets {
             return;
         }
 
-        // 加，左节点
+        // 不加，左节点
         dfs(nums, level + 1, path, ans);
 
-        // 不加，右节点
+        // 加，右节点
         path.push(nums[level]);  // 将当前的层级节点入栈
         dfs(nums, level + 1, path, ans);
         path.pop();  // 出栈
