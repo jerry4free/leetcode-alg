@@ -13,7 +13,7 @@ public class CombinationSum {
     Deque<Integer> path;
     List<List<Integer>> ans;
 
-    // 多叉树
+    // 多叉树的DFS
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         ans = new ArrayList<>();
         path = new ArrayDeque<>();
@@ -50,6 +50,7 @@ public class CombinationSum {
         }
     }
 
+    // 二叉树的DFS
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         ans = new ArrayList<>();
         path = new ArrayDeque<>();
