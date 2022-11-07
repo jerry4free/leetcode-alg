@@ -31,11 +31,8 @@ public class CombinationSumII {
     }
 
     private void dfs(int start, int target, int[] candidates, List<Integer> path, List<List<Integer>> ans){
-        show(path);
-        System.out.println("---start:" + start + ",target:" + target);
+//        System.out.println("---start:" + start + ",target:" + target);
         if (target == 0){
-            System.out.print("got one, ");
-            show(path);
             ans.add(new ArrayList<>(path));
             return;
         } else if (start >= candidates.length || target < 0){
@@ -49,14 +46,9 @@ public class CombinationSumII {
             if (target < candidates[i]){
                 break;
             }
-//            if (path.size() > 0 && candidates[i] < path.get(path.size()-1)){
-//                System.out.println(candidates[i] + "," + path.get(path.size()-1));
-//            }
             path.add(candidates[i]);
-//            System.out.println("push stack:" + candidates[i]);
             // 不能重复使用，所以是每次下标得+1
-            dfs(start + 1, target - candidates[i], candidates, path, ans);
-//            System.out.println("pop stack:" + candidates[i]);
+            dfs(i + 1, target - candidates[i], candidates, path, ans);
             path.remove(path.size() - 1);
         }
     }
