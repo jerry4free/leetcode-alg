@@ -10,7 +10,11 @@ import java.util.List;
  */
 public class PalindromePartitioning {
 
-    // TODO: not finish
+    /**
+     * 题目要找分割回文串的所有方案，这种搜索所有分割方案的过程，即需要分割很多步骤，每一步又有很多选择。
+     * 在递归地进行深度搜索的过程中，可以采用回溯的方法，
+     */
+
     public String[][] partition(String s) {
         List<List<String>> ret = new ArrayList<>();
 
@@ -20,9 +24,6 @@ public class PalindromePartitioning {
         String[][] ans = new String[ret.size()][];
         int i = 0;
         for (List<String> path: ret) {
-            for(String item: path) {
-                System.out.print(item + ",");
-            }
             String[] tmp = new String[path.size()];
             path.toArray(tmp);  // List有toArray的方法，可将list转化成array
             ans[i++] = tmp;
@@ -31,13 +32,10 @@ public class PalindromePartitioning {
         return ans;
     }
 
+    // DFS
     private void backTrack(String s, int start, List<List<String>> ret, List<String> path) {
         if (start == s.length()){ // 下标等于s的长度时，说明已经越界
-            for(String item: path) {
-                System.out.print(item + ",");
-            }
-            System.out.println("\ngot one");
-            ret.add(path);
+            ret.add(new ArrayList<>(path));  // copy path加入结果集中
             return;
         }
 
@@ -52,6 +50,7 @@ public class PalindromePartitioning {
         }
     }
 
+    // TODO: 此处判断是否回文可以优化，采用一个二维数组来
     private boolean isPalindrome(String s){
         for (int i = 0, j = s.length() - 1; i < j; i++,j--){
             if (s.charAt(i) != s.charAt(j)) {
