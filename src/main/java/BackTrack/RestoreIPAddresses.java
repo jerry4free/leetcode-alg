@@ -6,6 +6,10 @@ import java.util.*;
  * 93. Restore IP Addresses
  */
 public class RestoreIPAddresses {
+    /**
+     * 由于要找到所有的有效IP地址，搜索所有可能解，分4步，每一步都有3种选择，这种一般可以通过回溯的方法来解决
+     * 递归的深度搜索所有可能解，
+     */
     public List<String> restoreIpAddresses(String s) {
         List<List<String>> ret = new ArrayList<>();
         List<String> path = new ArrayList<>();
