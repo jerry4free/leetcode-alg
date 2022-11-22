@@ -19,22 +19,25 @@ public class InorderSuccessor {
         Deque<TreeNode> stack = new ArrayDeque<>();
         TreeNode curr = root;
         TreeNode prev = null;
+
         // 如果栈中的节点不为空
+        // 由于每次先入栈的左子树，然后入栈的是右子树。所以弹出时也是先左子树,最后是右子树
         while (!stack.isEmpty() || curr != null){
 
-            // 如果左节点不为空，就一直遍历；顺着左子树一直遍历不断压栈，直到叶子节点
+            // 1. 每次循环时, 一直将当前节点的左子树入栈.
             while (curr != null){
                 stack.push(curr);
                 curr = curr.left;
             }
-            // 从栈中弹出栈顶元素，就是当前路径里最靠近叶子节点的节点
+
+            // 2. 弹出栈顶
             curr = stack.pop();
-            // 如果之前节点是，则
+            // 如果之前节点是，则返回
             if (prev != null && prev.val == p.val){
                 return curr;
             }
 
-            // 最后才是右边节点
+            // 3. curr指向前元素的右子树的根节点
             prev = curr;
             curr = curr.right;
         }
@@ -60,7 +63,7 @@ public class InorderSuccessor {
         while (curr != null){
             if (curr.val <= p.val){  // 小于等于目标值，则下一个值一定在右子树
                 curr = curr.right;
-            } else {  // 大于目标值，则可能是当前节点值，记录下来；同时在遍历左子树，因为左子树比当前值还小
+            } else {  // 大于目标值，则可能是当前节点值，记录下来；同时在遍历左子树，因为左子树可能存在比当前值还小但是仍大于p的节点
                 found = curr;
                 curr = curr.left;
             }
