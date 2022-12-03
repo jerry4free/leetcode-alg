@@ -1,9 +1,9 @@
-package TreeX;
+package TrieX;
 
 import java.util.HashMap;
 
 /**
- * 208. 实现 Trie (前缀树)
+ * 208. 实现 TreeX.Trie (前缀树)
  */
 public class Trie {
 

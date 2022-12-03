@@ -1,4 +1,4 @@
-package TreeX;
+package TrieX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,8 @@ public class ReplaceWords {
                 if (curr.isEnd){
                     return sb.toString();
                 }
+            } else {
+                break;
             }
         }
         return sb.toString();
