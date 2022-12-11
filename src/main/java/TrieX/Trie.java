@@ -20,6 +20,11 @@ public class Trie {
 
     private Node root;
 
+    /**
+     * R是字符集个数，N是字典里词的个数，w是词（key）的平均长度
+     * 空间复杂度是O(RNw)。
+     * 实际中，短词是O(RN)，长词是O(RNw)
+     */
     public Trie() {
         root = new Node();
     }
@@ -39,6 +44,11 @@ public class Trie {
         curr.isLeaf = true;
     }
 
+    /**
+     * 词的字符长度是L，R是字符集个数，N是字典里词的个数
+     * 查找命中和插入的时间复杂度是O(L)
+     * 查找未命中的平均时间复杂度是以R为底N的对数
+     */
     public boolean search(String word) {
         Node curr = root;
         for (char c: word.toCharArray()){

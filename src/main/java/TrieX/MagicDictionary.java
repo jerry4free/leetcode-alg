@@ -21,6 +21,11 @@ public class MagicDictionary {
         root = new TrieNode();
     }
 
+
+    /**
+     * dictionary的个数是N，每个dictionary的字符长度是w，字符集大小是R，
+     * 那么trie数的整体空间复杂度是O(RNw)
+     */
     public void buildDict(String[] dictionary) {
         for (String d: dictionary){
             TrieNode curr = root;
