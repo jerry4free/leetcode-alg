@@ -11,10 +11,11 @@ public class CourseScheduleII {
     boolean[] visited;
     Stack<Integer> stack;
     boolean hasCycle;
+    int[] inDegree;
 
 
     // 可以第一次DFS判断是否有环，第二次DFS存储逆后序。也可以一起做
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
+    public int[] findOrder2(int numCourses, int[][] prerequisites) {
         // init
         hasCycle = false;
         onStack = new boolean[numCourses];
@@ -47,6 +48,58 @@ public class CourseScheduleII {
             ret[i++] = stack.pop();
         }
         return ret;
+    }
+
+
+    /**
+     * 队列实现，入度为0的顶点优先入队
+     */
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        // 构建图和入度数组
+        graph = new ArrayList[numCourses];
+        inDegree = new int[numCourses];
+        for (int i = 0; i < numCourses; i++){
+            graph[i] = new ArrayList<>();
+        }
+        for(int[] edge: prerequisites){
+            graph[edge[1]].add(edge[0]);
+            inDegree[edge[0]]++;
+        }
+
+        int[] ret = new int[numCourses];
+        boolean hasCycle = checkHasCycleAndGetOrder(ret);
+        if (hasCycle){
+            return new int[]{};
+        }
+
+        return ret;
+    }
+
+
+    private boolean checkHasCycleAndGetOrder(int[] ret){
+        Queue<Integer> q = new LinkedList<>();
+
+        int i = 0;
+        for (int v = 0; v < ret.length; v++){
+            if (inDegree[v] == 0){
+                q.add(v);
+                ret[i++] = v;
+            }
+        }
+
+        while (!q.isEmpty()){
+            // 每次取出入度为0的点v
+            int v = q.poll();
+            for (int w: graph[v]){  // 更新所有v的邻接点的入度
+                inDegree[w]--;
+                if (inDegree[w] == 0){ // 入度为0，加入队列
+                    q.add(w);
+                    ret[i++] = w;
+                }
+            }
+        }
+        // 如果有顶点没有入队则说明存在环，此时i小于numCourses-1
+        return i < (ret.length - 1);
     }
 
 

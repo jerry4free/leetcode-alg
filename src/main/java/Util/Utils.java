@@ -19,4 +19,11 @@ public class Utils {
         }
         System.out.println("");
     }
+
+    public static<E> void show(Iterable<E> adj){
+        for (E v: adj){
+            System.out.print("," + v);
+        }
+        System.out.println();
+    }
 }

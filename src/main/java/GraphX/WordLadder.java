@@ -1,5 +1,7 @@
 package GraphX;
 
+import Util.Utils;
+
 import java.util.*;
 
 /**
@@ -14,7 +16,7 @@ public class WordLadder {
      * 空间复杂度是O(N)，N是单词个数
      * 时间复杂度是O(N
      */
-    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+    public int ladderLength2(String beginWord, String endWord, List<String> wordList) {
         // 通过哈希表来避免同一个单词重复加入到路径中
         set = new HashSet<>(wordList);
         if (!set.contains(endWord)){
@@ -37,6 +39,48 @@ public class WordLadder {
                     q.add(v);
                 }
             }
+        }
+
+        return 0;
+    }
+
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        // 通过哈希表来避免同一个单词重复加入到路径中
+        set = new HashSet<>(wordList);
+        if (!set.contains(endWord)){
+            return 0;
+        }
+
+        Set<String> s1 = new HashSet<>();
+        s1.add(beginWord);
+        Set<String> s2 = new HashSet<>();
+        s2.add(endWord);
+        set.remove(endWord);
+
+        int ret = 2;
+        while (!s1.isEmpty() && !s2.isEmpty()){
+            // 确保s1是较小的集合
+            if (s1.size() > s2.size()){
+                Set<String> t = s1;
+                s1 = s2;
+                s2 = t;
+            }
+
+            // 遍历队列中所有单词
+            Set<String> s3 = new HashSet<>();
+            for (String w: s1) {
+                for (String v: getAdj(w)){  // 对于每个词，枚举所有邻接单词
+                    if (s2.contains(v)){
+                        return ret;
+                    } else {
+                        s3.add(v);
+                    }
+                }
+            }
+
+            Utils.show(s3);
+            s1 = s3;
+            ret++;
         }
 
         return 0;
