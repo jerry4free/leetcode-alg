@@ -9,9 +9,11 @@ import java.util.*;
  */
 public class SudokuSolver {
     public static int n = 9;
+    private int counter = 0;
 
-    // 第一次写，时间耗时较长，不过通过了
-    public void solveSudoku(char[][] board) {
+    // 回溯方法
+    // 第一版，时间耗时较长，通过了
+    public void solveSudoku1(char[][] board) {
 
         // 将要填的表格标记序号，加入列表
         List<Integer> emptyList = new LinkedList<>();
@@ -31,10 +33,13 @@ public class SudokuSolver {
         if (idx == emptyList.size()) {
             return true;
         }
+
+        counter++;
+
         int i = emptyList.get(idx) / n;
         int j = emptyList.get(idx) % n;
 
-        // 枚举当前board[i][k]的可选的有效值
+        // 枚举当前board[i][j]的可选的有效值
         for (Character c: getValidNumbers(board, i, j)){
             board[i][j] = c;
 //            System.out.println("board[" + i + "][" + j + "]:" + board[i][j]);
@@ -46,6 +51,7 @@ public class SudokuSolver {
         return false;
     }
 
+    // 获取board[i][j]的能填充的有效值，对于每个空格需要4*9次数组访问
     private Set<Character> getValidNumbers(char[][] board, int i, int j){
         Set<Character> set = new HashSet<>();
         for (char c = 0; c < n; c++){
@@ -69,6 +75,62 @@ public class SudokuSolver {
         return set;
     }
 
+    private void showCallCnt(){
+        System.out.println("traceback call count:" + counter);
+    }
+
+    private boolean[][] rowUsed; // 对于每一行i，column[i]标记9个数字是否已经被占用
+    private boolean[][] columnUsed; // 对于每一列j，column[j]标记9个数字是否已经被占用
+    private boolean[][][] subboxUsed; // 对于每一个subbox，subbox[i][j]标记其9个数字是否已经被占用
+
+    public void solveSudoku(char[][] board) {
+        rowUsed = new boolean[9][9];
+        columnUsed = new boolean[9][9];
+        subboxUsed = new boolean[3][3][9];
+
+        // 将要填的表格标记序号，加入列表
+        List<int[]> toDoList = new LinkedList<>();
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < n; j++){
+                if (board[i][j] == '.'){
+                    toDoList.add(new int[]{i, j});
+                } else {
+                    int d = board[i][j] - '1'; // '1'转化成0，'2'转换成1，一次类推
+                    rowUsed[i][d] = true;
+                    columnUsed[j][d] = true;
+                    subboxUsed[i/3][j/3][d] = true;
+                }
+            }
+        }
+
+        dfs(board, toDoList, 0);
+    }
+
+    private boolean dfs(char[][] board, List<int[]> toDoList, int idx){
+        // base case，如果都已经填完，则返回
+        if (idx == toDoList.size()) {
+            return true;
+        }
+
+        int i = toDoList.get(idx)[0];
+        int j = toDoList.get(idx)[1];
+
+        // 枚举当前board[i][j]的可选的有效值,
+        // 此处经过优化后，速度有所提升
+        for (int d = 0; d < 9; d++){
+            if (!rowUsed[i][d] && !columnUsed[j][d] && !subboxUsed[i/3][j/3][d]){
+                board[i][j] = (char)(d + '1');
+                rowUsed[i][d] = columnUsed[j][d] = subboxUsed[i/3][j/3][d] = true;
+                if (dfs(board, toDoList, idx + 1)){
+                    return true;
+                }
+                rowUsed[i][d] = columnUsed[j][d] = subboxUsed[i/3][j/3][d] = false;
+                board[i][j] = '.';
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         SudokuSolver inst = new SudokuSolver();
         char [][] board =
@@ -85,5 +147,6 @@ public class SudokuSolver {
                 };
         inst.solveSudoku(board);
         Utils.show2D(board);
+        inst.showCallCnt();
     }
 }
