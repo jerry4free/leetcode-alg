@@ -40,7 +40,38 @@ public class LongestIncreasingSubsequence {
         return ans;
     }
 
-    // TODO: 贪心法, 使用二分查找提高每轮状态的时间复杂度: O(NlgN),
+    // 贪心法, 使用二分查找提高每轮状态的时间复杂度: O(NlgN), 比较难
+    // 核心参考：patient sorting
+    // 1. 这个游戏会玩，但是为什么这么排序后的堆数就是最长子序列的个数，无法直觉的想明白，或许得证明
+    public int lengthOfLIS1(int[] nums) {
+        int piles = 0;
+        int n = nums.length;
+        // 存储每个堆的堆顶元素
+        int[] top = new int[n];
+
+        for (int num: nums) {
+            int left = 0;
+            int right = piles;
+            // 任意时刻，堆顶元素都是自增的，所以可以通过二分查找对应的堆
+            while (left < right) {
+                int mid = (right + left) / 2;
+                if (num < top[mid]) {
+                    right = mid;
+                } else if (num > top[mid]) {
+                    left = mid + 1;
+                } else {
+//                    left = mid;
+                    right = mid;
+                }
+            }
+            // left为最后找到的堆下标，
+            // 如果超过原来堆数，即left == piles，则新建一个堆
+            if (left == piles) piles++;
+            // 更新堆顶元素
+            top[left] = num;
+        }
+        return piles;
+    }
 
     public static void main(String[] args) {
         LongestIncreasingSubsequence inst = new LongestIncreasingSubsequence();
