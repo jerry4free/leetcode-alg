@@ -79,6 +79,12 @@ public class LRUCache {
         }
     }
 
+    class PrintBar extends Thread {
+        public void run() {
+            System.out.print("bar");
+        }
+    }
+
     public void put(int key, int value) {
         //更新队列
         DlinkedNode node;
